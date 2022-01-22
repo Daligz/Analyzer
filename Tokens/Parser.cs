@@ -52,12 +52,15 @@ namespace Analyzer.Tokens
 
         public void print()
         {
+            Console.WriteLine();
             foreach (KeyValuePair<TokenType, List<Token>> tokenDictionary in this.tokens)
             {
+                Console.WriteLine($"{tokenDictionary.Key}:");
                 foreach (Token token in tokenDictionary.Value)
                 {
-                    Console.WriteLine($"{token.GetTokenType()} | ({(int)token.GetTokenType()}, {token.GetIndex()}) | {token.GetValue()}");
+                    Console.WriteLine($" - {token.GetTokenType()} | ({(int)token.GetTokenType()}, {token.GetIndex()}) | {token.GetValue()}");
                 }
+                Console.WriteLine();
             }
         }
     }

@@ -8,7 +8,8 @@ namespace Analyzer.Tokens
 
         public static Regex endClassDefinition = new Regex(@"\};");
 
-        public static Regex variableDefinition = new Regex(@"int\s+[a-zA-Z]+\s+=\s+\d;");
+        //public static Regex variableDefinition = new Regex(@"int\s+[a-zA-Z]+\s+=\s+\d;");
+        public static Regex variableDefinition = new Regex(@"int|floa|dou|boo|str");
 
         public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<");
     }

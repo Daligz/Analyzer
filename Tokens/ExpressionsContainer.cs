@@ -53,6 +53,7 @@ namespace Analyzer.Tokens
             while (match.Success)
             {
                 string[] splittedExpression = match.Value.Split(" ");
+                if (Expressions.reservedDefinition.IsMatch(splittedExpression[1])) return;
                 expression = expressionDefinition.Replace(expression, $"{splittedExpression[0]}", 1);
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, splittedExpression[1]));
                 match = match.NextMatch();

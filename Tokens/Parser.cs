@@ -45,7 +45,7 @@ namespace Analyzer.Tokens
         public void check()
         {
             this.expression = Regex.Replace(expression.Trim(), @"\s+", " ");
-            if (String.IsNullOrWhiteSpace(this.expression))
+            if (String.IsNullOrEmpty(this.expression))
             {
                 Console.WriteLine("LA EXPRESIÓN NO TIENE ERRORES!");
                 return;

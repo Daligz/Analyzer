@@ -23,6 +23,8 @@ namespace Analyzer.Tokens
 
         public static Regex specialDefinition = new Regex(";|{|}|\\(|\\)");
 
+        public static Regex endsWithTerminator = new Regex(@";$");
+
         public static Regex GetExpressionByToken(TokenType tokenType)
         {
             switch (tokenType)

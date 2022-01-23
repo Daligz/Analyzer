@@ -1,4 +1,5 @@
 ﻿using Analyzer.Tokens;
+using Analyzer.Rules;
 using System;
 
 namespace Analyzer
@@ -9,6 +10,7 @@ namespace Analyzer
         {
             Console.Write("Escribe alguna expresión: ");
             string expression = Console.ReadLine();
+            ExpressionsRules.RunChecks(ref expression);
             Parser parser = new Parser(expression);
             parser.compute();
             parser.print();

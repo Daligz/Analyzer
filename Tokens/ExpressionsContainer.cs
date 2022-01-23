@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Analyzer.Rules;
+using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Analyzer.Tokens
@@ -26,6 +28,11 @@ namespace Analyzer.Tokens
 
         public void ExecuteAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
+            if (!(Expressions.endsWithTerminator.IsMatch(expression)))
+            {
+
+                return;
+            }
             if (tokenType == TokenType.Identifiers)
             {
                 this.GetIndentifiersAction(ref expression, expressionDefinition, tokenType, tokens);
@@ -53,7 +60,12 @@ namespace Analyzer.Tokens
             while (match.Success)
             {
                 string[] splittedExpression = match.Value.Split(" ");
-                if (Expressions.reservedDefinition.IsMatch(splittedExpression[1])) return;
+                if (Expressions.reservedDefinition.IsMatch(splittedExpression[1]))
+                {
+                    Errors.DataTypeNotFound(splittedExpression[1]);
+                    expression = " ";
+                    return;
+                }
                 expression = expressionDefinition.Replace(expression, $"{splittedExpression[0]}", 1);
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, splittedExpression[1]));
                 match = match.NextMatch();

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Analyzer.Tokens
@@ -35,7 +34,7 @@ namespace Analyzer.Tokens
             this.GetDefaultAction(expression, expressionDefinition, tokenType, tokens);
         }
 
-        public void GetDefaultAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        private void GetDefaultAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
             Match match = expressionDefinition.Match(expression);
@@ -46,7 +45,7 @@ namespace Analyzer.Tokens
             }
         }
 
-        public void GetIndentifiersAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        private void GetIndentifiersAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
             Match match = expressionDefinition.Match(expression);

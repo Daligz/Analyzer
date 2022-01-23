@@ -11,6 +11,7 @@ namespace Analyzer
             Parser parser = new Parser(expression);
             parser.compute();
             parser.print();
+            parser.check();
         }
     }
 }

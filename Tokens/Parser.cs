@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Analyzer.Tokens
 {
@@ -38,6 +39,18 @@ namespace Analyzer.Tokens
                     Console.WriteLine($" - {token.GetTokenType()} | ({(int)token.GetTokenType()}, {token.GetIndex()}) | {token.GetValue()}");
                 }
                 Console.WriteLine();
+            }
+        }
+
+        public void check()
+        {
+            this.expression = Regex.Replace(expression, @"\s+", " ");
+            if (!(String.IsNullOrWhiteSpace(this.expression))) return;
+            string[] splittedExpression = this.expression.Split(" ");
+            Console.WriteLine($"|X| LA EXPRESION TIENE {splittedExpression.Length} ERRORES |X|");
+            foreach (string error in splittedExpression)
+            {
+                Console.WriteLine($"[ X ] - {error}");
             }
         }
     }

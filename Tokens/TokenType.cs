@@ -7,8 +7,7 @@
         Operators = 2,
         Integers = 3,
         Decimals = 4,
-        Booleans = 5,
-        Identifiers = 6,
-        ConstStrings = 7
+        Identifiers = 5,
+        ConstStrings = 6
     }
 }

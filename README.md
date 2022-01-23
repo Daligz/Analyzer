@@ -1,2 +1,2 @@
 # Analyzer
-Lexical analyzer built from regular functions
+Lexical analyzer created from regular expressions

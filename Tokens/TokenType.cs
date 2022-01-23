@@ -8,6 +8,7 @@
         integers = 3,
         decimals = 4,
         booleans = 5,
-        identifiers = 6
+        identifiers = 6,
+        constStrings = 7
     }
 }

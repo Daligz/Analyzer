@@ -20,13 +20,13 @@ namespace Analyzer.Tokens
 
         public void compute()
         {
-
             if (Expressions.variableDefinition.IsMatch(this.expression))
             {
                 Match match = Expressions.variableDefinition.Match(expression);
                 while (match.Success)
                 {
-                    this.tokens[TokenType.ReservedWords].Add(new Token(TokenType.ReservedWords, this.tokens[TokenType.ReservedWords].Count, match.Value));
+                    string replacer = Regex.Replace(match.Value, @"\s+", " ").Split(" ")[1];
+                    this.tokens[TokenType.ReservedWords].Add(new Token(TokenType.ReservedWords, this.tokens[TokenType.ReservedWords].Count, replacer));
                     match = match.NextMatch();
                 }
             }
@@ -45,6 +45,15 @@ namespace Analyzer.Tokens
                 while (match.Success)
                 {
                     this.tokens[TokenType.Operators].Add(new Token(TokenType.Operators, this.tokens[TokenType.Operators].Count, match.Value));
+                    match = match.NextMatch();
+                }
+            }
+            else if (Expressions.stringDefinition.IsMatch(this.expression))
+            {
+                Match match = Expressions.stringDefinition.Match(expression);
+                while (match.Success)
+                {
+                    this.tokens[TokenType.constStrings].Add(new Token(TokenType.constStrings, this.tokens[TokenType.constStrings].Count, match.Value));
                     match = match.NextMatch();
                 }
             }

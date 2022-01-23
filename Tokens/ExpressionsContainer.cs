@@ -42,6 +42,7 @@ namespace Analyzer.Tokens
             while (match.Success)
             {
                 expression = Regex.Replace(expression, expressionDefinition.ToString(), "");
+                Console.WriteLine(expression);
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, match.Value));
                 match = match.NextMatch();
             }
@@ -53,8 +54,9 @@ namespace Analyzer.Tokens
             Match match = expressionDefinition.Match(expression);
             while (match.Success)
             {
-                expression = Regex.Replace(expression, expressionDefinition.ToString(), "");
                 string replacer = Regex.Replace(match.Value, @"\s+", " ").Split(" ")[1];
+                expression = expression.Replace(replacer, "");
+                Console.WriteLine(expression);
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, replacer));
                 match = match.NextMatch();
             }

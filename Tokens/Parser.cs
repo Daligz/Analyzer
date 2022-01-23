@@ -44,8 +44,12 @@ namespace Analyzer.Tokens
 
         public void check()
         {
-            this.expression = Regex.Replace(expression, @"\s+", " ");
-            if (!(String.IsNullOrWhiteSpace(this.expression))) return;
+            this.expression = Regex.Replace(expression.Trim(), @"\s+", " ");
+            if (String.IsNullOrWhiteSpace(this.expression))
+            {
+                Console.WriteLine("LA EXPRESION NO TIENE ERRORES!");
+                return;
+            }
             string[] splittedExpression = this.expression.Split(" ");
             Console.WriteLine($"|X| LA EXPRESION TIENE {splittedExpression.Length} ERRORES |X|");
             foreach (string error in splittedExpression)

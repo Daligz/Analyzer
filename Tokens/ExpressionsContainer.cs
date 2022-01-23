@@ -27,7 +27,7 @@ namespace Analyzer.Tokens
 
         public void ExecuteAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
-            if (tokenType == TokenType.identifiers)
+            if (tokenType == TokenType.Identifiers)
             {
                 this.GetIndentifiersAction(expression, expressionDefinition, tokenType, tokens);
                 return;

@@ -13,7 +13,7 @@ namespace Analyzer.Tokens
 
         public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<|\+|-|/|%");
 
-        public static Regex stringDefinition = new Regex("\"[a - zA - Z] +\"");
+        public static Regex stringDefinition = new Regex("\"[a-zA-Z]+\"");
 
         public static Regex GetExpressionByToken(TokenType tokenType)
         {
@@ -21,11 +21,11 @@ namespace Analyzer.Tokens
             {
                 case TokenType.Operators:
                     return operatorsDefinition;
-                case TokenType.constStrings:
+                case TokenType.ConstStrings:
                     return stringDefinition;
                 case TokenType.ReservedWords:
                     return reservedDefinition;
-                case TokenType.identifiers:
+                case TokenType.Identifiers:
                     return variableDefinition;
                 default:
                     return null;

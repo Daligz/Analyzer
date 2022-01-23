@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Analyzer.Tokens
 {
@@ -9,11 +7,11 @@ namespace Analyzer.Tokens
         //public static Regex mainClassDefinition = new Regex(@"pub\s+class\s+[a-zA-Z]+\s+\{$", RegexOptions.IgnoreCase);
 
         //public static Regex variableDefinition = new Regex(@"int\s+[a-zA-Z]+\s+=\s+\d;");
-        public static Regex variableTypeDefinition = new Regex(@"int|floa|dou|boo|str");
+        public static Regex reservedDefinition = new Regex(@"int|flo|dou|boo|str|pub|class|print");
 
-        public static Regex variableDefinition = new Regex(@"int|floa|dou|boo|str\s+[a-zA-Z]+");
+        public static Regex variableDefinition = new Regex(@"(int|boo|flo|dou|str)\s+[a-zA-Z]+");
 
-        public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<");
+        public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<|\+|-|/|%");
 
         public static Regex stringDefinition = new Regex("\"[a - zA - Z] +\"");
 
@@ -26,6 +24,8 @@ namespace Analyzer.Tokens
                 case TokenType.constStrings:
                     return stringDefinition;
                 case TokenType.ReservedWords:
+                    return reservedDefinition;
+                case TokenType.identifiers:
                     return variableDefinition;
                 default:
                     return null;

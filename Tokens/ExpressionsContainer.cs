@@ -25,29 +25,37 @@ namespace Analyzer.Tokens
             return this.regex;
         }
 
-        public void GetDefaultAction(string expression, Regex expressionDefinition, TokenType tokenType, List<Token> tokens)
+        public void ExecuteAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        {
+            if (tokenType == TokenType.identifiers)
+            {
+                this.GetIndentifiersAction(expression, expressionDefinition, tokenType, tokens);
+                return;
+            }
+            this.GetDefaultAction(expression, expressionDefinition, tokenType, tokens);
+        }
+
+        public void GetDefaultAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
             Match match = expressionDefinition.Match(expression);
             while (match.Success)
             {
-                tokens.Add(new Token(tokenType, tokens.Count, match.Value));
+                tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, match.Value));
                 match = match.NextMatch();
             }
         }
 
-        public Action<string, Regex, TokenType, List<Token>> GetDefaultAction2()
+        public void GetIndentifiersAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
-            return (string expression, Regex expressionDefinition, TokenType tokenType, List<Token> tokens) =>
+            if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
+            Match match = expressionDefinition.Match(expression);
+            while (match.Success)
             {
-                if (!(expressionDefinition.IsMatch(expression))) return;
-                Match match = expressionDefinition.Match(expression);
-                while (match.Success)
-                {
-                    tokens.Add(new Token(tokenType, tokens.Count, match.Value));
-                    match = match.NextMatch();
-                }
-            };
+                string replacer = Regex.Replace(match.Value, @"\s+", " ").Split(" ")[1];
+                tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, replacer));
+                match = match.NextMatch();
+            }
         }
     }
 }

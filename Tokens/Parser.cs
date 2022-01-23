@@ -25,7 +25,7 @@ namespace Analyzer.Tokens
 
             foreach (ExpressionsContainer expressionContainer in this.expressionsContainers)
             {
-                expressionContainer.GetDefaultAction(this.expression, expressionContainer.GetRegex(), expressionContainer.GetTokenType(), this.tokens[expressionContainer.GetTokenType()]);
+                expressionContainer.ExecuteAction(this.expression, expressionContainer.GetRegex(), expressionContainer.GetTokenType(), this.tokens);
             }
             /*if (Expressions.variableDefinition.IsMatch(this.expression))
             {

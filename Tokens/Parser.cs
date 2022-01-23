@@ -23,7 +23,7 @@ namespace Analyzer.Tokens
         {
             foreach (ExpressionsContainer expressionContainer in this.expressionsContainers)
             {
-                expressionContainer.ExecuteAction(this.expression, expressionContainer.GetRegex(), expressionContainer.GetTokenType(), this.tokens);
+                expressionContainer.ExecuteAction(ref this.expression, expressionContainer.GetRegex(), expressionContainer.GetTokenType(), this.tokens);
             }
         }
 

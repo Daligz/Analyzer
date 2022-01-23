@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Analyzer.Tokens
@@ -24,33 +25,35 @@ namespace Analyzer.Tokens
             return this.regex;
         }
 
-        public void ExecuteAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        public void ExecuteAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (tokenType == TokenType.Identifiers)
             {
-                this.GetIndentifiersAction(expression, expressionDefinition, tokenType, tokens);
+                this.GetIndentifiersAction(ref expression, expressionDefinition, tokenType, tokens);
                 return;
             }
-            this.GetDefaultAction(expression, expressionDefinition, tokenType, tokens);
+            this.GetDefaultAction(ref expression, expressionDefinition, tokenType, tokens);
         }
 
-        private void GetDefaultAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        private void GetDefaultAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
             Match match = expressionDefinition.Match(expression);
             while (match.Success)
             {
+                expression = Regex.Replace(expression, expressionDefinition.ToString(), "");
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, match.Value));
                 match = match.NextMatch();
             }
         }
 
-        private void GetIndentifiersAction(string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        private void GetIndentifiersAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
             Match match = expressionDefinition.Match(expression);
             while (match.Success)
             {
+                expression = Regex.Replace(expression, expressionDefinition.ToString(), "");
                 string replacer = Regex.Replace(match.Value, @"\s+", " ").Split(" ")[1];
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, replacer));
                 match = match.NextMatch();

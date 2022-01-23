@@ -2,11 +2,11 @@
 {
     public enum TokenType
     {
-        ReservedWords = 1,
-        Operators = 2,
-        Identifiers = 3,
-        ConstStrings = 4,
-        ConstNums = 5,
+        Identifiers = 1,
+        ConstStrings = 2,
+        ConstNums = 3,
+        ReservedWords = 4,
+        Operators = 5,
         Special = 6
     }
 }

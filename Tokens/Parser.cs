@@ -8,6 +8,7 @@ namespace Analyzer.Tokens
     {
         private string expression;
         private Dictionary<TokenType, List<Token>> tokens = new Dictionary<TokenType, List<Token>>();
+        private ICollection<ExpressionsContainer> expressionsContainers = new List<ExpressionsContainer>();
 
         public Parser(string expression)
         {
@@ -15,27 +16,24 @@ namespace Analyzer.Tokens
             foreach(TokenType tokenType in TokenType.GetValues(typeof(TokenType)))
             {
                 this.tokens.Add(tokenType, new List<Token>());
+                this.expressionsContainers.Add(new ExpressionsContainer(tokenType, Expressions.GetExpressionByToken(tokenType)));
             }
         }
 
         public void compute()
         {
-            if (Expressions.variableDefinition.IsMatch(this.expression))
+
+            foreach (ExpressionsContainer expressionContainer in this.expressionsContainers)
+            {
+                expressionContainer.GetDefaultAction(this.expression, expressionContainer.GetRegex(), expressionContainer.GetTokenType(), this.tokens[expressionContainer.GetTokenType()]);
+            }
+            /*if (Expressions.variableDefinition.IsMatch(this.expression))
             {
                 Match match = Expressions.variableDefinition.Match(expression);
                 while (match.Success)
                 {
                     string replacer = Regex.Replace(match.Value, @"\s+", " ").Split(" ")[1];
                     this.tokens[TokenType.ReservedWords].Add(new Token(TokenType.ReservedWords, this.tokens[TokenType.ReservedWords].Count, replacer));
-                    match = match.NextMatch();
-                }
-            }
-            else if (Expressions.mainClassDefinition.IsMatch(this.expression))
-            {
-                Match match = Expressions.mainClassDefinition.Match(expression);
-                while (match.Success)
-                {
-                    this.tokens[TokenType.ReservedWords].Add(new Token(TokenType.ReservedWords, this.tokens[TokenType.ReservedWords].Count, match.Value));
                     match = match.NextMatch();
                 }
             }
@@ -56,7 +54,10 @@ namespace Analyzer.Tokens
                     this.tokens[TokenType.constStrings].Add(new Token(TokenType.constStrings, this.tokens[TokenType.constStrings].Count, match.Value));
                     match = match.NextMatch();
                 }
-            }
+            } else
+            {
+                this.tokens[TokenType.Undefined].Add(new Token(TokenType.Undefined, this.tokens[TokenType.Undefined].Count, expression));
+            }*/
         }
 
         public void print()

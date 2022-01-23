@@ -36,7 +36,7 @@ namespace Analyzer.Tokens
                 Console.WriteLine($"{tokenDictionary.Key}:");
                 foreach (Token token in tokenDictionary.Value)
                 {
-                    Console.WriteLine($" - {token.GetTokenType()} | ({(int)token.GetTokenType()}, {token.GetIndex()}) | {token.GetValue()}");
+                    Console.WriteLine($" - ({(int)token.GetTokenType()}, {token.GetIndex()}) | {token.GetValue()}");
                 }
                 Console.WriteLine();
             }

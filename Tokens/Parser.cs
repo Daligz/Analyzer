@@ -47,11 +47,11 @@ namespace Analyzer.Tokens
             this.expression = Regex.Replace(expression.Trim(), @"\s+", " ");
             if (String.IsNullOrWhiteSpace(this.expression))
             {
-                Console.WriteLine("LA EXPRESION NO TIENE ERRORES!");
+                Console.WriteLine("LA EXPRESIÓN NO TIENE ERRORES!");
                 return;
             }
             string[] splittedExpression = this.expression.Split(" ");
-            Console.WriteLine($"|X| LA EXPRESION TIENE {splittedExpression.Length} ERRORES |X|");
+            Console.WriteLine($"|X| LA EXPRESIÓN TIENE {splittedExpression.Length} ERRORES |X|");
             foreach (string error in splittedExpression)
             {
                 Console.WriteLine($"[ X ] - {error}");

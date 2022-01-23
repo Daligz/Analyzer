@@ -12,13 +12,14 @@ namespace Analyzer.Tokens
 
         public static Regex variableDefinition = new Regex(@"(int|boo|flo|dou|str)\s+[a-zA-Z]+");
 
-        public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<|\+|-|/|%");
+        public static Regex operatorsDefinition = new Regex(@"==|>=|<=|!=|=|!|>|<|\+|-|/|%|&&");
 
-        public static Regex stringDefinition = new Regex("\"[a-zA-Z]+\"");
+        //public static Regex stringDefinition = new Regex("\"[a-zA-Z]+\"");
+        public static Regex stringDefinition = new Regex("\"[^\"]*\"");
 
-        public static Regex decimalDefinition = new Regex("[0-9]*\\.[0-9]+");
-
-        public static Regex constIntegerDefinition = new Regex("^[0-9]+$");
+        //public static Regex decimalDefinition = new Regex("[0-9]*\\.[0-9]+");
+        //public static Regex constIntegerDefinition = new Regex("[0-9]+");
+        public static Regex constNumeric = new Regex(@"[+-]?([0-9]+\.?[0-9]*|\.[0-9]+)");
 
         public static Regex specialDefinition = new Regex(";|{|}|\\(|\\)");
 
@@ -34,10 +35,8 @@ namespace Analyzer.Tokens
                     return reservedDefinition;
                 case TokenType.Identifiers:
                     return variableDefinition;
-                case TokenType.Decimals:
-                    return decimalDefinition;
-                case TokenType.Integers:
-                    return constIntegerDefinition;
+                case TokenType.ConstNums:
+                    return constNumeric;
                 case TokenType.Special:
                     return specialDefinition;
                 default:

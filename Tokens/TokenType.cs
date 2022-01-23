@@ -4,10 +4,9 @@
     {
         ReservedWords = 1,
         Operators = 2,
-        Integers = 3,
-        Decimals = 4,
-        Identifiers = 5,
-        ConstStrings = 6,
-        Special = 7
+        Identifiers = 3,
+        ConstStrings = 4,
+        ConstNums = 5,
+        Special = 6
     }
 }

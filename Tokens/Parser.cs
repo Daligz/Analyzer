@@ -8,7 +8,7 @@ namespace Analyzer.Tokens
     {
         private string expression;
         private Dictionary<TokenType, List<Token>> tokens = new Dictionary<TokenType, List<Token>>();
-        private ICollection<ExpressionsContainer> expressionsContainers = new List<ExpressionsContainer>();
+        private List<ExpressionsContainer> expressionsContainers = new List<ExpressionsContainer>();
 
         public Parser(string expression)
         {

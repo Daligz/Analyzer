@@ -54,10 +54,11 @@ namespace Analyzer.Tokens
         private void GetIndentifiersAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
             if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return;
+            if (GetIndentifiersOperationsAction(ref expression, tokenType, tokens)) return;
             Match match = expressionDefinition.Match(expression);
             while (match.Success)
             {
-                string[] splittedExpression = match.Value.Split(" ");
+                string[] splittedExpression = Regex.Replace(match.Value, Expressions.whiteSpacesDefinition.ToString(), "").Split(" ");
                 if (Expressions.reservedDefinition.IsMatch(splittedExpression[1]))
                 {
                     Errors.DataTypeNotFound(splittedExpression[1]);
@@ -68,6 +69,24 @@ namespace Analyzer.Tokens
                 tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, splittedExpression[1]));
                 match = match.NextMatch();
             }
+        }
+
+        private bool GetIndentifiersOperationsAction(ref string expression, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        {
+            Regex expressionDefinition = Expressions.operationsDefinition;
+            if (expressionDefinition == null || !(expressionDefinition.IsMatch(expression))) return false;
+            Match match = expressionDefinition.Match(expression);
+            while (match.Success)
+            {
+                if (!(Expressions.operatorsDefinition.IsMatch(match.Value))) return false;
+                Match subMatch = Expressions.operatorsDefinition.Match(match.Value);
+                string[] splittedExpression = match.Value.Split(subMatch.Value);
+                expression = expression.Replace(splittedExpression[0], "").Replace(splittedExpression[1], "");
+                tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, splittedExpression[0]));
+                tokens[tokenType].Add(new Token(tokenType, tokens[tokenType].Count, splittedExpression[1].Trim()));
+                match = match.NextMatch();
+            }
+            return false;
         }
     }
 }

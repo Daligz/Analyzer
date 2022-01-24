@@ -8,9 +8,9 @@ namespace Analyzer.Tokens
     class ExpressionsContainer
     {
         private TokenType tokenType;
-        private Regex regex;
+        private ICollection<Regex> regex;
 
-        public ExpressionsContainer(TokenType tokenType, Regex regex)
+        public ExpressionsContainer(TokenType tokenType, ICollection<Regex> regex)
         {
             this.tokenType = tokenType;
             this.regex = regex;
@@ -21,24 +21,22 @@ namespace Analyzer.Tokens
             return this.tokenType;
         }
 
-        public Regex GetRegex()
+        public ICollection<Regex> GetRegex()
         {
             return this.regex;
         }
 
-        public void ExecuteAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
+        public void ExecuteAction(ref string expression, ICollection<Regex> expressionsDefinitions, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)
         {
-            if (!(Expressions.endsWithTerminator.IsMatch(expression)))
+            foreach (Regex expressionDefinition in expressionsDefinitions)
             {
-
-                return;
+                if (tokenType == TokenType.Identifiers)
+                {
+                    this.GetIndentifiersAction(ref expression, expressionDefinition, tokenType, tokens);
+                    return;
+                }
+                this.GetDefaultAction(ref expression, expressionDefinition, tokenType, tokens);
             }
-            if (tokenType == TokenType.Identifiers)
-            {
-                this.GetIndentifiersAction(ref expression, expressionDefinition, tokenType, tokens);
-                return;
-            }
-            this.GetDefaultAction(ref expression, expressionDefinition, tokenType, tokens);
         }
 
         private void GetDefaultAction(ref string expression, Regex expressionDefinition, TokenType tokenType, Dictionary<TokenType, List<Token>> tokens)

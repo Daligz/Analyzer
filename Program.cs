@@ -12,9 +12,9 @@ namespace Analyzer
             string expression = Console.ReadLine();
             ExpressionsRules.RunChecks(ref expression);
             Parser parser = new Parser(expression);
-            parser.compute();
-            parser.print();
-            parser.check();
+            parser.Compute();
+            parser.Print();
+            parser.Check();
         }
     }
 }

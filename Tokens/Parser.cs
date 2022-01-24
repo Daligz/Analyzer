@@ -20,7 +20,7 @@ namespace Analyzer.Tokens
             }
         }
 
-        public void compute()
+        public void Compute()
         {
             foreach (ExpressionsContainer expressionContainer in this.expressionsContainers)
             {
@@ -28,7 +28,7 @@ namespace Analyzer.Tokens
             }
         }
 
-        public void print()
+        public void Print()
         {
             Console.WriteLine();
             foreach (KeyValuePair<TokenType, List<Token>> tokenDictionary in this.tokens)
@@ -42,7 +42,7 @@ namespace Analyzer.Tokens
             }
         }
 
-        public void check()
+        public void Check()
         {
             this.expression = Regex.Replace(expression.Trim(), @"\s+", " ");
             if (String.IsNullOrEmpty(this.expression))

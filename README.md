@@ -10,6 +10,36 @@ Analyzer is a token recognition oriented lexical analyzer using regular expressi
 id + id - id = id + id - id / id <br/><br/>
 "id" represents alphanumeric values including decimals.
 
+## Expressions
+
+### Reserved words
+* int
+* flo
+* dou
+* boo
+* str
+* pub
+* class
+* print
+* true
+* false
+
+### Operations
+* "=="
+* ">="
+* "<="
+* "!="
+* "="
+* !
+* >
+* <
+* +
+* -
+* /
+* %
+* &&
+* *
+
 # Lexical rules
 * An identifier cannot be called as a reserved word.
 * Expressions must end with a semicolon. (;)

@@ -30,15 +30,15 @@ id + id - id = id + id - id / id <br/><br/>
 * "<="
 * "!="
 * "="
-* !
-* >
-* <
-* +
-* -
-* /
-* %
-* &&
-* *
+* "!"
+* ">"
+* "<"
+* "+"
+* "-"
+* "/"
+* "%"
+* "&&"
+* "*"
 
 # Lexical rules
 * An identifier cannot be called as a reserved word.

@@ -6,6 +6,14 @@ Lexical analyzer created from regular expressions
 # About
 Analyzer is a token recognition oriented lexical analyzer using regular expressions to check the rules of assigned grammatical structures.
 
+## Successful expression
+![successful-expression](docs/successful-expression.png)
+
+## Unsuccessful expression
+![unsuccessful-expression2](docs/unsuccessful-expression2.png)
+![unsuccessful-expression1](docs/unsuccessful-expression1.png)
+
+
 # Grammar
 id + id - id = id + id - id / id <br/><br/>
 "id" represents alphanumeric values including decimals.
@@ -55,4 +63,4 @@ Reals and decimals
 * Odd operations cannot be performed on an expression.
 
 # Lexical analyzer process
-![Lexical-Analysis](docs/lexical-analysis-process.png)
+![lexical-analysis-process](docs/lexical-analysis-process.png)

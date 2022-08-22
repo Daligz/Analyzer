@@ -39,6 +39,10 @@ id + id - id = id + id - id / id <br/><br/>
 * "%"
 * "&&"
 * "*"
+* ";"
+
+### Numbers
+Reals and decimals
 
 # Lexical rules
 * An identifier cannot be called as a reserved word.
